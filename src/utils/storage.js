@@ -45,22 +45,22 @@ export function addNewDeck(deck) {
   return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(deck));
 }
 
-export function addQuestion({ question, title }) {
+export function addQuestion({ newQuestion, title }) {
   return AsyncStorage.getItem(STORAGE_KEY)
   .then((result) => {
-      let decks = JSON.parse(result);
+    let decks = JSON.parse(result);
 
-      let questions = JSON.parse(JSON.stringify(decks[title].questions));
-      questions.push(question)
+    let questions = JSON.parse(JSON.stringify(decks[title].questions));
+    questions.push(newQuestion)
 
-      const value = JSON.stringify({
-          [title]: {
-            title,
-            questions
-          },
-      });
+    const value = JSON.stringify({
+        [title]: {
+          title,
+          questions
+        },
+    });
 
-      AsyncStorage.mergeItem(STORAGE_KEY, value);
+    return AsyncStorage.mergeItem(STORAGE_KEY, value);
   });
 }
 

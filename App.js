@@ -6,6 +6,7 @@ import { white, gray, black } from './src/utils/colors'
 import DeckList from './src/components/DeckList'
 import NewDeck from './src/components/NewDeck'
 import DeckDetails from './src/components/DeckDetails'
+import AddCard from './src/components/AddCard'
 
 const CustomStatusBar =  ({ backgroundColor, ...props }) => {
   return (
@@ -61,6 +62,16 @@ const MainNavigator = StackNavigator({
         height: 30,
       },
     }
+  },
+  AddCard: {
+    screen: AddCard,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: gray,
+        height: 30,
+      },
+    },
   }
 })
 
