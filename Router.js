@@ -27,7 +27,7 @@ const Tabs = TabNavigator({
   },
   tabBarOptions: {
     style: {
-      height: 56,
+      height: 60,
       backgroundColor: gray,
       shadowColor: 'rgba(0, 0, 0, 0.24)',
       shadowOffset: {
@@ -50,7 +50,10 @@ const router = StackNavigator({
       headerTintColor: white,
       headerStyle: {
         backgroundColor: gray,
-        height: 30,
+        height: 40,
+      },
+      headerTitleStyle: {
+        flex: 1,
       },
     },
   },
@@ -60,7 +63,7 @@ const router = StackNavigator({
       headerTintColor: white,
       headerStyle: {
         backgroundColor: gray,
-        height: 30,
+        height: 40,
       },
     },
   },
@@ -70,7 +73,7 @@ const router = StackNavigator({
       headerTintColor: white,
       headerStyle: {
         backgroundColor: gray,
-        height: 30,
+        height: 40,
       },
     },
   },

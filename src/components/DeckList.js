@@ -32,13 +32,11 @@ export default class DeckList extends Component {
 
   render() {
     return (
-      <View>
-        <FlatList
-          data={this.state.decks}
-          renderItem={this.renderDeck}
-          keyExtractor={(deck, index) => index}
-        />
-      </View>
+      <FlatList
+        data={this.state.decks}
+        renderItem={this.renderDeck}
+        keyExtractor={(deck, index) => index.toString()}
+      />
     );
   }
 }

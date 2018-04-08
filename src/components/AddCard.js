@@ -1,26 +1,26 @@
-import React, { Component } from 'react';
-import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
-import { addQuestion } from '../utils/storage';
+import React, { Component } from 'react'
+import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { addQuestion } from '../utils/storage'
 import { white, black } from '../utils/colors'
 export default class AddCard extends Component {
   state = {
     question: '',
     answer: ''
-  };
+  }
 
   submitQuestion = () => {
-    let alert = {};
-    const { question, answer } = this.state;
-    const { title, questions } = this.props.navigation.state.params;
+    let alert = {}
+    const { question, answer } = this.state
+    const { title, questions } = this.props.navigation.state.params
 
-    if (question === '') {
-      Alert.alert('Error', 'Question cannot be empty');
-      return;
+    if (!question) {
+      Alert.alert('Error', 'Question cannot be empty')
+      return
     }
 
-    if (answer === '') {
-      Alert.alert('Error', 'Answer cannot be empty');
-      return;
+    if (!answer) {
+      Alert.alert('Error', 'Answer cannot be empty')
+      return
     }
 
     const params = {
@@ -29,7 +29,7 @@ export default class AddCard extends Component {
         question,
         answer,
       },
-    };
+    }
 
     addQuestion(params)
     .then(() => Alert.alert(
@@ -38,10 +38,10 @@ export default class AddCard extends Component {
       [{ text: 'OK', onPress: () => this.props.navigation
         .navigate('DeckDetails', { title }) }],
     ))
-  };
+  }
 
   render() {
-    const { question, answer } = this.state;
+    const { question, answer } = this.state
 
     return (
       <View style={styles.container}>
@@ -70,7 +70,7 @@ export default class AddCard extends Component {
           <Text style={styles.btnText}>Submit</Text>
         </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
@@ -105,4 +105,4 @@ const styles = StyleSheet.create({
     fontSize: 22,
     textAlign: 'center',
   },
-});
+})

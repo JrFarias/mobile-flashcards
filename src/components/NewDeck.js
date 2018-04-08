@@ -23,8 +23,10 @@ export default class NewDeck extends Component {
 
     if (!text) {
       Alert.alert('Error', 'Deck name cannot be empty')
+      return
     } else if (decks[text]) {
       Alert.alert('Error', 'Deck Already exists')
+      return
     }
 
     addNewDeck(text)

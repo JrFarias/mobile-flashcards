@@ -9,6 +9,10 @@ export default class DeckDetails extends Component {
     questions: []
   }
 
+  static navigationOptions = ({ navigation }) => ({
+    title: `${navigation.state.params.title}`,
+  })
+
   componentDidMount() {
     getDeckByTitle(this.props.navigation.state.params.title)
     .then(deck => this.setState({

@@ -1,8 +1,9 @@
-import React from 'react'
+import React, { Component } from 'react'
 import { Constants } from 'expo'
-import { View, StatusBar } from 'react-native'
+import { View, StatusBar, StyleSheet } from 'react-native'
 import { gray } from './src/utils/colors'
 import Router from './Router'
+import { setLocalNotification } from './src/utils/notifications'
 
 const CustomStatusBar =  ({ backgroundColor, ...props }) =>
 (
@@ -11,12 +12,23 @@ const CustomStatusBar =  ({ backgroundColor, ...props }) =>
   </View>
 )
 
-const App = () =>
-(
-  <View style={{ flex: 1 }}>
-    <CustomStatusBar backgroundColor={gray} barStyle="light-content" />
-    <Router />
-  </View>
-)
+export default class App extends Component {
+  componentDidMount() {
+    setLocalNotification()
+  }
 
-export default App
+  render() {
+  return (
+    <View style={styles.container}>
+      <CustomStatusBar backgroundColor={gray} barStyle="light-content" />
+      <Router />
+    </View>
+  )}
+}
+
+const styles = StyleSheet.create({
+  container: {
+    flex: 1
+  }
+})
+
