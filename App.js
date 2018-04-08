@@ -78,7 +78,7 @@ const MainNavigator = StackNavigator({
 export default class App extends Component {
   render() {
     return (
-      <View  style={{ flex: 1 }}>
+      <View style={{ flex: 1 }}>
         <CustomStatusBar backgroundColor={gray} barStyle="light-content" />
         <MainNavigator />
       </View>
