@@ -7,6 +7,7 @@ import DeckList from './src/components/DeckList'
 import NewDeck from './src/components/NewDeck'
 import DeckDetails from './src/components/DeckDetails'
 import AddCard from './src/components/AddCard'
+import Quiz from './src/components/Quiz/Quiz'
 
 const CustomStatusBar =  ({ backgroundColor, ...props }) => {
   return (
@@ -72,7 +73,17 @@ const MainNavigator = StackNavigator({
         height: 30,
       },
     },
-  }
+  },
+  Quiz: {
+    screen: Quiz,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: gray,
+        height: 30,
+      },
+    },
+  },
 })
 
 export default class App extends Component {

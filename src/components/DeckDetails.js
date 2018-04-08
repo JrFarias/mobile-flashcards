@@ -38,7 +38,9 @@ export default class DeckDetails extends Component {
         </TouchableOpacity>
 
         <TouchableOpacity
-          style={styles.btnQuiz}>
+          style={styles.btnQuiz}
+          onPress={() => navigation.navigate('Quiz', { title, questions })}
+        >
           <Text style={styles.btnQuizTitle}>Start Quiz</Text>
         </TouchableOpacity>
       </View>

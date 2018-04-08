@@ -40,27 +40,27 @@ export default class NewDeck extends Component {
 
   render() {
     return (
-      <View style={style.container}>
-         <Text style={style.text}>What is the title of your new deck ?</Text>
+      <View style={styles.container}>
+         <Text style={styles.text}>What is the title of your new deck ?</Text>
          <TextInput
           value={this.state.text}
           placeholder="Deck title"
-          style={style.input}
+          style={styles.input}
           onChangeText={text => this.setState({ text })}
           underlineColorAndroid='transparent'
         />
         <TouchableOpacity
           onPress={this.add}
-          style={style.btn}
+          style={styles.btn}
         >
-          <Text style={style.btnText}>Submit</Text>
+          <Text style={styles.btnText}>Submit</Text>
         </TouchableOpacity>
       </View>
     )
   }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
   },

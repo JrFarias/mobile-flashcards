@@ -44,36 +44,37 @@ export default class AddCard extends Component {
     const { question, answer } = this.state;
 
     return (
-      <View style={style.container}>
-        <Text style={style.text}>Question is</Text>
+      <View style={styles.container}>
+        <Text style={styles.text}>Question is</Text>
         <TextInput
           defaultValue="Question"
           value={question}
-          style={style.input}
+          style={styles.input}
           onChangeText={question => this.setState({ question })}
           underlineColorAndroid='transparent'
         />
 
-        <Text style={style.text}>Answer is</Text>
+        <Text style={styles.text}>Answer is</Text>
         <TextInput
           defaultValue="Answer"
           value={answer}
-          style={style.input}
+          style={styles.input}
           onChangeText={answer => this.setState({ answer })}
           underlineColorAndroid='transparent'
         />
 
         <TouchableOpacity
           onPress={this.submitQuestion}
-          style={style.btn}>
-          <Text style={style.btnText}>Submit</Text>
+          style={styles.btn}
+        >
+          <Text style={styles.btnText}>Submit</Text>
         </TouchableOpacity>
       </View>
     );
   }
 }
 
-const style = StyleSheet.create({
+const styles = StyleSheet.create({
   container: {
     paddingTop: 20,
   },
