@@ -1,10 +1,11 @@
 import React, { Component } from 'react'
+import { Constants } from 'expo'
 import { StyleSheet, Text, View, StatusBar } from 'react-native'
 import { TabNavigator, StackNavigator } from 'react-navigation'
-import { Constants } from 'expo'
+import { white, gray, black } from './src/utils/colors'
 import DeckList from './src/components/DeckList'
 import NewDeck from './src/components/NewDeck'
-import { white, gray } from './src/utils/colors'
+import DeckDetails from './src/components/DeckDetails'
 
 const CustomStatusBar =  ({ backgroundColor, ...props }) => {
   return (
@@ -50,6 +51,16 @@ const Tabs = TabNavigator({
 const MainNavigator = StackNavigator({
   Home: {
     screen: Tabs
+  },
+  DeckDetails: {
+    screen: DeckDetails,
+    navigationOptions: {
+      headerTintColor: white,
+      headerStyle: {
+        backgroundColor: gray,
+        height: 30,
+      },
+    }
   }
 })
 
