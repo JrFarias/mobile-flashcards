@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native';
 import { addQuestion } from '../utils/storage';
 import { white, black } from '../utils/colors'
-
 export default class AddCard extends Component {
   state = {
     question: '',
@@ -12,18 +11,7 @@ export default class AddCard extends Component {
   submitQuestion = () => {
     let alert = {};
     const { question, answer } = this.state;
-    // const { title, questions } = this.props.navigation.state.params;
-    const title = 'React'
-    const questions = [
-      {
-        question: 'What is React?',
-        answer: 'A library for managing user interfaces'
-      },
-      {
-        question: 'Where do you make Ajax requests in React?',
-        answer: 'The componentDidMount lifecycle event'
-      }
-    ];
+    const { title, questions } = this.props.navigation.state.params;
 
     if (question === '') {
       Alert.alert('Error', 'Question cannot be empty');
@@ -43,13 +31,13 @@ export default class AddCard extends Component {
       },
     };
 
-    addQuestion(params).then(() => {
-      Alert.alert(
-        'Successful',
-        'Question Added Successfully',
-        [{ text: 'OK', onPress: () => this.props.navigation.goBack() }],
-      );
-    })
+    addQuestion(params)
+    .then(() => Alert.alert(
+      'Successful',
+      'Question Added Successfully',
+      [{ text: 'OK', onPress: () => this.props.navigation
+        .navigate('DeckDetails', { title }) }],
+    ))
   };
 
   render() {

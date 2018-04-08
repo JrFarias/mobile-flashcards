@@ -1,19 +1,46 @@
 import React, { Component } from 'react';
 import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert }  from 'react-native';
 import { white, black } from '../utils/colors';
+import { getAllDecks, addNewDeck } from '../utils/storage'
 
 export default class NewDeck extends Component {
-  state = {}
+  state = {
+    text: '',
+    decks: [],
+    isLoading: true,
+  }
 
   componentDidMount() {
-    this.setState({
-      text: ''
-    })
+    getAllDecks()
+    .then(decks => this.setState({
+        decks: Object.values(decks),
+        isLoading: false,
+      }))
+  }
+
+  add = () => {
+    const { text, decks } = this.state
+
+    if (!text) {
+      Alert.alert('Error', 'Deck name cannot be empty')
+    } else if (decks[text]) {
+      Alert.alert('Error', 'Deck Already exists')
+    }
+
+    addNewDeck(text)
+    .then(() => Alert.alert(
+      'Successful',
+      'Deck added',
+      [{
+        text: 'OK',
+        onPress: () => this.props.navigation.navigate('DeckDetails', { title: text })
+      }])
+    )
   }
 
   render() {
     return (
-      <View>
+      <View style={style.container}>
          <Text style={style.text}>What is the title of your new deck ?</Text>
          <TextInput
           value={this.state.text}
@@ -23,17 +50,20 @@ export default class NewDeck extends Component {
           underlineColorAndroid='transparent'
         />
         <TouchableOpacity
-          onPress={this.addNewDeck}
+          onPress={this.add}
           style={style.btn}
         >
           <Text style={style.btnText}>Submit</Text>
         </TouchableOpacity>
       </View>
-    );
+    )
   }
 }
 
 const style = StyleSheet.create({
+  container: {
+    paddingTop: 20,
+  },
   text: {
     fontSize: 40,
     textAlign: 'center'
@@ -61,6 +91,5 @@ const style = StyleSheet.create({
     color: white,
     fontSize: 22,
     textAlign: 'center',
-  }
+  },
 })
-

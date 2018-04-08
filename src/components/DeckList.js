@@ -12,9 +12,9 @@ export default class DeckList extends Component {
   componentDidMount() {
     getAllDecks()
     .then(decks => this.setState({
-        decks: Object.values(decks),
-        isLoading: false
-      }))
+      decks: Object.values(decks),
+      isLoading: false
+    }))
   }
 
   renderDeck = ({ item }) => (
