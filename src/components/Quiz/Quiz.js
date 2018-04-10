@@ -1,10 +1,10 @@
 import React, { Component } from 'react'
 import { View, StyleSheet, TouchableOpacity, Text } from 'react-native'
-import { NavigationActions } from 'react-navigation'
 import { green, black, red } from '../../utils/colors'
 import AfterQuiz from './AfterQuiz'
 import QuestionLength from './QuestionLength'
 import Question from './Question'
+import { clearLocalNotification, setLocalNotification } from '../../utils/notifications'
 
 export default class Quiz extends Component {
   state = {
@@ -13,12 +13,17 @@ export default class Quiz extends Component {
     showAnswer: false,
   }
 
-  startQuiz = () =>
+  startQuiz = () => {
+    clearLocalNotification()
+    .then(setLocalNotification)
+
     this.setState({
       questionIndex: 0,
       correctAnswers: 0,
       showAnswer: false
     })
+  }
+
 
   correctHandler = () => {
     const { questionIndex, correctAnswers } = this.state
@@ -30,7 +35,12 @@ export default class Quiz extends Component {
     })
   }
 
-  backToDeck = () => this.props.navigation.goBack()
+  backToDeck = () => {
+    clearLocalNotification()
+    .then(setLocalNotification)
+
+    this.props.navigation.goBack()
+  }
 
   incorrectHandler = () =>
     this.setState({
