@@ -1,25 +1,18 @@
-import React, { Component } from 'react';
-import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert }  from 'react-native';
-import { white, black } from '../utils/colors';
-import { getAllDecks, addNewDeck } from '../utils/storage'
+import React, { Component } from 'react'
+import { View, Text, TextInput, StyleSheet, TouchableOpacity, Alert }  from 'react-native'
+import { connect } from 'react-redux'
+import { white, black } from '../utils/colors'
+import { addNewDeckStore } from '../utils/storage'
+import { addNewDeck } from '../ducks'
 
-export default class NewDeck extends Component {
+class NewDeck extends Component {
   state = {
     text: '',
-    decks: [],
-    isLoading: true,
-  }
-
-  componentDidMount() {
-    getAllDecks()
-    .then(decks => this.setState({
-        decks: Object.values(decks),
-        isLoading: false,
-      }))
   }
 
   add = () => {
-    const { text, decks } = this.state
+    const { decks } = this.props
+    const { text } = this.state
 
     if (!text) {
       Alert.alert('Error', 'Deck name cannot be empty')
@@ -29,14 +22,20 @@ export default class NewDeck extends Component {
       return
     }
 
-    addNewDeck(text)
-    .then(() => Alert.alert(
+    this.props.dispatch(addNewDeck(text));
+
+    addNewDeckStore(text)
+    .then(() => {
+      this.setState({ text: ''})
+
+      Alert.alert(
       'Successful',
       'Deck added',
       [{
         text: 'OK',
         onPress: () => this.props.navigation.navigate('DeckDetails', { title: text })
       }])
+    }
     )
   }
 
@@ -61,6 +60,12 @@ export default class NewDeck extends Component {
     )
   }
 }
+
+function mapStateToProps(decks) {
+  return { decks }
+}
+
+export default connect(mapStateToProps)(NewDeck)
 
 const styles = StyleSheet.create({
   container: {

@@ -1,8 +1,10 @@
 import React, { Component } from 'react'
 import { Alert, StyleSheet, Text, TextInput, TouchableOpacity, View } from 'react-native'
-import { addQuestion } from '../utils/storage'
+import { connect } from 'react-redux';
+import { addQuestionStore } from '../utils/storage'
 import { white, black } from '../utils/colors'
-export default class AddCard extends Component {
+import { addQuestion } from '../ducks'
+class AddCard extends Component {
   state = {
     question: '',
     answer: ''
@@ -25,19 +27,26 @@ export default class AddCard extends Component {
 
     const params = {
       title,
+      questions,
       newQuestion: {
         question,
         answer,
       },
     }
 
-    addQuestion(params)
-    .then(() => Alert.alert(
+    this.props.dispatch(addQuestion(params))
+
+    addQuestionStore(params)
+    .then(() => {
+      this.setState({ question: '', answer: ''})
+
+      Alert.alert(
       'Successful',
       'Question Added Successfully',
-      [{ text: 'OK', onPress: () => this.props.navigation
-        .navigate('DeckDetails', { title }) }],
-    ))
+      [{ text: 'OK', onPress: () => this.props.navigation.goBack() }],)
+    })
+
+
   }
 
   render() {
@@ -73,6 +82,12 @@ export default class AddCard extends Component {
     )
   }
 }
+
+function mapStateToProps(decks) {
+  return { decks }
+}
+
+export default connect(mapStateToProps)(AddCard)
 
 const styles = StyleSheet.create({
   container: {

@@ -50,7 +50,7 @@ export function getDeckByTitle(title) {
   })
 }
 
-export function addNewDeck(deck) {
+export function addNewDeckStore(deck) {
   const newDeck = {
     [deck]: {
       title: deck,
@@ -61,7 +61,7 @@ export function addNewDeck(deck) {
   return AsyncStorage.mergeItem(STORAGE_KEY, JSON.stringify(newDeck));
 }
 
-export function addQuestion({ newQuestion, title }) {
+export function addQuestionStore({ newQuestion, title }) {
   return AsyncStorage.getItem(STORAGE_KEY)
   .then((result) => {
     let decks = JSON.parse(result);

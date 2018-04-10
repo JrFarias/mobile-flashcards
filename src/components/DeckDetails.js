@@ -1,29 +1,18 @@
 import React, { Component } from 'react';
 import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { connect } from 'react-redux';
 import { white, black } from '../utils/colors';
 import { getDeckByTitle } from '../utils/storage'
 
-export default class DeckDetails extends Component {
-  state = {
-    title: '',
-    questions: []
-  }
-
+class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.title}`,
   })
 
-  componentDidMount() {
-    getDeckByTitle(this.props.navigation.state.params.title)
-    .then(deck => this.setState({
-      title: deck.title,
-      questions: deck.questions,
-    }))
-  }
-
   render() {
     const { navigation } = this.props
-    const { title, questions } = this.state
+    const title = this.props.navigation.state.params.title
+    const questions = this.props.decks[title] && this.props.decks[title].questions
 
     return (
       <View style={styles.container}>
@@ -51,6 +40,12 @@ export default class DeckDetails extends Component {
     );
   }
 }
+
+function mapStateToProps(decks) {
+  return { decks }
+}
+
+export default connect(mapStateToProps)(DeckDetails)
 
 const styles = StyleSheet.create({
   container: {

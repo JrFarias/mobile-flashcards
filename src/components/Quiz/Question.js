@@ -4,7 +4,7 @@ import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 const Question = ({ color, question, onPress, title }) => (
   <View style={styles.container}>
     <Text style={styles.question}>{ question }</Text>
-    <TouchableOpacity onPress={onPress}>
+    <TouchableOpacity onPress={() => onPress()}>
       <Text style={[styles.btnText, { color }]}>{title}</Text>
     </TouchableOpacity>
   </View>

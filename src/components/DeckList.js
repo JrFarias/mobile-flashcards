@@ -1,20 +1,21 @@
-import React, { Component } from 'react';
-import { View, Text, TouchableOpacity, FlatList }  from 'react-native';
+import React, { Component } from 'react'
+import { View, Text, TouchableOpacity, FlatList }  from 'react-native'
+import { connect } from 'react-redux'
 import { getAllDecks } from '../utils/storage'
 import Deck from './Deck'
+import { getDecks } from '../ducks'
 
-export default class DeckList extends Component {
+class DeckList extends Component {
   state = {
-    decks: [],
     isLoading: true
   }
 
   componentDidMount() {
+    const { dispatch } = this.props
+
     getAllDecks()
-    .then(decks => this.setState({
-      decks: Object.values(decks),
-      isLoading: false
-    }))
+    .then(decks => dispatch(getDecks(decks)))
+    .then(() => this.setState({ isLoading: false }))
   }
 
   renderDeck = ({ item }) => (
@@ -28,15 +29,21 @@ export default class DeckList extends Component {
         />
       </TouchableOpacity>
     </View>
-  );
+  )
 
   render() {
     return (
       <FlatList
-        data={this.state.decks}
+        data={Object.values(this.props.decks)}
         renderItem={this.renderDeck}
         keyExtractor={(deck, index) => index.toString()}
       />
-    );
+    )
   }
 }
+
+function mapStateToProps(decks) {
+  return { decks }
+}
+
+export default connect(mapStateToProps)(DeckList);
