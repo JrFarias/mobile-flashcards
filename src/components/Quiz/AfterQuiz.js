@@ -1,8 +1,18 @@
-import React from 'react'
+import React, { Component} from 'react'
 import { View, Text, TouchableOpacity, StyleSheet } from 'react-native'
 import { green, black, red } from '../../utils/colors'
+import { clearLocalNotification, setLocalNotification } from '../../utils/notifications'
 
-const AfterQuiz = ({ startQuiz, backToDeck, score }) => (
+export default class AfterQuiz extends Component {
+  componentDidMount() {
+    clearLocalNotification()
+    .then(setLocalNotification)
+  }
+
+  render() {
+  const { startQuiz, backToDeck, score } = this.props
+
+  return(
   <View style={styles.container}>
     <Text style={styles.score}>Score: { score }</Text>
       <View style={styles.body}>
@@ -23,7 +33,8 @@ const AfterQuiz = ({ startQuiz, backToDeck, score }) => (
         </View>
       </View>
   </View>
-)
+  )}
+}
 
 const styles = StyleSheet.create({
   container: {
@@ -60,5 +71,3 @@ const styles = StyleSheet.create({
     borderWidth: 2,
   },
 })
-
-export default AfterQuiz

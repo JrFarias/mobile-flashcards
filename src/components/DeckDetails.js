@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { View, StyleSheet, Text, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, Text, TouchableOpacity, Alert } from 'react-native';
 import { connect } from 'react-redux';
 import { white, black } from '../utils/colors';
 import { getDeckByTitle } from '../utils/storage'
@@ -8,6 +8,16 @@ class DeckDetails extends Component {
   static navigationOptions = ({ navigation }) => ({
     title: `${navigation.state.params.title}`,
   })
+
+  startQuiz(questions) {
+    if (!questions.length) {
+      Alert.alert('Error', 'Deck has no questions')
+      return
+    }
+    const title = this.props.navigation.state.params.title
+
+    this.props.navigation.navigate('Quiz', { title, questions })
+  }
 
   render() {
     const { navigation } = this.props
@@ -32,7 +42,7 @@ class DeckDetails extends Component {
 
         <TouchableOpacity
           style={styles.btnQuiz}
-          onPress={() => navigation.navigate('Quiz', { title, questions })}
+          onPress={() => this.startQuiz(questions)}
         >
           <Text style={styles.btnQuizTitle}>Start Quiz</Text>
         </TouchableOpacity>

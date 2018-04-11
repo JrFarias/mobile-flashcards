@@ -4,7 +4,6 @@ import { green, black, red } from '../../utils/colors'
 import AfterQuiz from './AfterQuiz'
 import QuestionLength from './QuestionLength'
 import Question from './Question'
-import { clearLocalNotification, setLocalNotification } from '../../utils/notifications'
 
 export default class Quiz extends Component {
   state = {
@@ -13,17 +12,12 @@ export default class Quiz extends Component {
     showAnswer: false,
   }
 
-  startQuiz = () => {
-    clearLocalNotification()
-    .then(setLocalNotification)
-
+  startQuiz = () =>
     this.setState({
       questionIndex: 0,
       correctAnswers: 0,
       showAnswer: false
     })
-  }
-
 
   correctHandler = () => {
     const { questionIndex, correctAnswers } = this.state
@@ -35,16 +29,12 @@ export default class Quiz extends Component {
     })
   }
 
-  backToDeck = () => {
-    clearLocalNotification()
-    .then(setLocalNotification)
-
-    this.props.navigation.goBack()
-  }
+  backToDeck = () => this.props.navigation.goBack()
 
   incorrectHandler = () =>
     this.setState({
-      questionIndex: this.state.questionIndex + 1
+      questionIndex: this.state.questionIndex + 1,
+      showAnswer: false
     })
 
   showAnswer = () =>
